@@ -17,6 +17,7 @@
             margin: 0;
             padding: 20px;
             box-sizing: border-box;
+            position: relative;
         }
         .container {
             display: flex;
@@ -186,6 +187,24 @@
         .shake {
             animation: shake 0.4s ease-in-out;
         }
+        
+        /* Секретная ссылка в углу */
+        .secret-link {
+            position: fixed;
+            bottom: 15px;
+            right: 15px;
+            font-size: 9px;
+            color: #003311;
+            text-decoration: none;
+            opacity: 0.3;
+            transition: opacity 0.3s;
+            letter-spacing: 1px;
+        }
+        .secret-link:hover {
+            opacity: 0.8;
+            color: #00ff41;
+            text-shadow: 0 0 10px rgba(0, 255, 65, 0.5);
+        }
     </style>
 </head>
 <body>
@@ -239,6 +258,9 @@
         </div>
     </div>
 
+    <!-- Секретная ссылка -->
+    <a href="r5t8n1v6y1.html" class="secret-link">About HUBE system</a>
+
     <script src="https://cdnjs.cloudflare.com/ajax/libs/crypto-js/4.2.0/crypto-js.min.js"></script>
     <script>
         (function() {
@@ -249,9 +271,6 @@
             const loginBtn = document.getElementById('loginBtn');
             const loginBox = document.getElementById('loginBox');
 
-            // ============================================================
-            // РЕАЛЬНЫЕ SHA-256 ХЕШИ (100% ПРОВЕРЕНЫ)
-            // ============================================================
             const USERS = {
                 '08059c25a01973a769ea567e20d7d8a8c876a55f83391f4e3b20470140d775c0': {
                     passwordHash: '35717ffd2cd275976173d57633c8eb5e650d36b299f7a171a974ea3e55aed3bc',
@@ -269,7 +288,7 @@
 
             let attempts = 0;
             const MAX_ATTEMPTS = 5;
-            const BLOCK_TIME = 5 * 60 * 1000; // 5 минут
+            const BLOCK_TIME = 5 * 60 * 1000;
 
             function showError(message) {
                 errorMsg.textContent = message;
@@ -281,7 +300,6 @@
             form.addEventListener('submit', function(event) {
                 event.preventDefault();
 
-                // 1. Проверка блокировки
                 const blockUntil = localStorage.getItem('block_until');
                 if (blockUntil && Date.now() < parseInt(blockUntil, 10)) {
                     const remaining = Math.ceil((parseInt(blockUntil, 10) - Date.now()) / 1000 / 60);
@@ -292,26 +310,22 @@
                 const enteredUsername = usernameInput.value.trim();
                 const enteredPassword = passwordInput.value.trim();
 
-                // 2. Базовая валидация
                 if (!enteredUsername || !enteredPassword) {
                     showError('PLEASE FILL IN ALL FIELDS.');
                     return;
                 }
 
-                // 3. Хеширование и проверка
                 const usernameHash = CryptoJS.SHA256(enteredUsername).toString();
                 const passwordHash = CryptoJS.SHA256(enteredPassword).toString();
 
                 const user = USERS[usernameHash];
 
                 if (user && user.passwordHash === passwordHash) {
-                    // Успешный вход
                     attempts = 0;
                     localStorage.removeItem('block_until');
                     localStorage.setItem('arg_auth', 'true');
                     window.location.href = user.redirect;
                 } else {
-                    // Ошибка
                     attempts++;
                     showError('AUTHENTICATION FAILED. INVALID USERNAME OR PASSWORD. ACCESS DENIED.');
 
@@ -320,12 +334,10 @@
                         showError('TOO MANY FAILED ATTEMPTS. SYSTEM LOCKED FOR 5 MINUTES.');
                     }
 
-                    // Сброс полей и возврат фокуса
                     usernameInput.value = '';
                     passwordInput.value = '';
                     usernameInput.focus();
 
-                    // Визуальный эффект на кнопке
                     loginBtn.textContent = 'DENIED';
                     loginBtn.style.borderColor = '#ff2244';
                     loginBtn.style.color = '#ff2244';
@@ -337,7 +349,6 @@
                 }
             });
 
-            // Скрытие ошибки при начале нового ввода
             function clearError() {
                 if (errorMsg.style.display === 'block') {
                     errorMsg.style.display = 'none';
@@ -346,12 +357,10 @@
             usernameInput.addEventListener('input', clearError);
             passwordInput.addEventListener('input', clearError);
 
-            // Автофокус при загрузке страницы
             window.addEventListener('load', function() {
                 usernameInput.focus();
             });
 
-            // Пасхалка для ARG
             console.log('%c HINT: Page 47. "A Borrowed Voice"', 'color: #00ff41; background: #000; font-size: 14px; padding: 5px;');
         })();
     </script>
