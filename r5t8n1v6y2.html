@@ -124,6 +124,7 @@
 
         .message .username.klemenko { color: #00aa33; }
         .message .username.kovalchuk { color: #00ff41; }
+        .message .username.joseph { color: #00ccff; } /* Новый цвет для Джозефа */
         
         .message .text {
             color: #00dd55;
@@ -187,7 +188,7 @@
                 </li>
                 <li class="contact-item" onclick="openChat('chat_joseph', this)">
                     <span class="contact-name">joseph1010</span>
-                    <span class="contact-date">[ NO DATA ]</span>
+                    <span class="contact-date">24.02.1983</span>
                 </li>
                 <li class="contact-item" onclick="openChat('chat_fosforov', this)">
                     <span class="contact-name">fosforov9014</span>
@@ -258,12 +259,50 @@
                 </div>
             </div>
 
-            <!-- Заглушки для остальных -->
+            <!-- Чат 2: Джозеф -->
             <div id="chat_joseph" class="chat-content hidden-chat">
-                <div class="chat-header"><h2>USER: joseph1010</h2></div>
-                <div class="null-msg">NULL</div>
+                <div class="chat-header">
+                    <h2>LOG ID: SEC-JOSEPH // 24.02.1983</h2>
+                </div>
+
+                <div class="message">
+                    <span class="time">14:43</span>
+                    <span class="username kovalchuk">Kovalchuk:</span>
+                    <span class="text">Hello, Joseph. I heard something happened last night. Is that true?</span>
+                </div>
+
+                <div class="message">
+                    <span class="time">14:45</span>
+                    <span class="username joseph">Joseph1010:</span>
+                    <span class="text">Hello, Professor. No, everything’s fine. Maybe I’m just imagining things. I didn’t sleep well before the shift started, and I also took some pills.</span>
+                </div>
+
+                <div class="message">
+                    <span class="time">14:50</span>
+                    <span class="username kovalchuk">Kovalchuk:</span>
+                    <span class="text">Okay, I understand. Please notify us if you notice anything suspicious during your shifts. We will assist you promptly.</span>
+                </div>
+
+                <div class="message">
+                    <span class="time">14:56</span>
+                    <span class="username joseph">Joseph1010:</span>
+                    <span class="text">Got it. Thanks for the support. It would be nice if the old air conditioner in my office were replaced — it’s very loud and sometimes gets in the way.</span>
+                </div>
+
+                <div class="message">
+                    <span class="time">14:59</span>
+                    <span class="username kovalchuk">Kovalchuk:</span>
+                    <span class="text">Unfortunately, the company doesn’t have the funds for this. If it’s really bothering you, you can always replace it at your own expense.</span>
+                </div>
+
+                <div class="message last-msg">
+                    <span class="time">15:02</span>
+                    <span class="username joseph">Joseph1010:</span>
+                    <span class="text">Great support from the company, thank you!</span>
+                </div>
             </div>
 
+            <!-- Заглушки для остальных -->
             <div id="chat_fosforov" class="chat-content hidden-chat">
                 <div class="chat-header"><h2>USER: fosforov9014</h2></div>
                 <div class="null-msg">NULL</div>
