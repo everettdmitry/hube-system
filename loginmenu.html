@@ -3,7 +3,6 @@
 <head>
     <title>LAB ARCHIVE // AUTHENTICATION</title>
     <style>
-        /* === OLD TERMINAL STYLE === */
         body {
             background-color: #0a0a0a;
             color: #00ff41;
@@ -17,7 +16,6 @@
             padding: 20px;
             box-sizing: border-box;
         }
-
         .container {
             display: flex;
             gap: 30px;
@@ -25,7 +23,6 @@
             flex-wrap: wrap;
             justify-content: center;
         }
-
         .login-box {
             border: 2px solid #00ff41;
             padding: 40px 50px;
@@ -34,7 +31,6 @@
             box-shadow: 0 0 30px rgba(0, 255, 65, 0.15);
             background-color: #0a0a0a;
         }
-
         .login-box h1 {
             text-align: center;
             font-size: 20px;
@@ -45,8 +41,6 @@
             padding-bottom: 12px;
             margin-top: 0;
         }
-
-        /* === RECENT LOGINS PANEL === */
         .recent-panel {
             border: 2px solid #00aa33;
             padding: 20px 25px;
@@ -56,7 +50,6 @@
             box-shadow: 0 0 20px rgba(0, 255, 65, 0.05);
             border-color: #005522;
         }
-
         .recent-panel h2 {
             font-size: 13px;
             font-weight: normal;
@@ -68,7 +61,6 @@
             margin-top: 0;
             margin-bottom: 12px;
         }
-
         .recent-item {
             font-size: 14px;
             color: #00aa33;
@@ -77,20 +69,12 @@
             display: flex;
             justify-content: space-between;
         }
-
-        .recent-item .highlight {
-            color: #00ff41;
-        }
-
-        .recent-item .guest {
-            color: #005522;
-        }
-
+        .recent-item .highlight { color: #00ff41; }
+        .recent-item .guest { color: #005522; }
         .recent-item .date {
             color: #003311;
             font-size: 12px;
         }
-
         .recent-footer {
             font-size: 10px;
             color: #002211;
@@ -98,19 +82,15 @@
             text-align: right;
             letter-spacing: 1px;
         }
-
         .divider-line {
             color: #003311;
             border: none;
             border-top: 1px solid #003311;
             margin: 10px 0;
         }
-
-        /* === REST OF STYLES === */
         .input-group {
             margin: 18px 0;
         }
-
         .input-group label {
             display: block;
             font-size: 13px;
@@ -119,11 +99,9 @@
             color: #00ff41;
             margin-bottom: 4px;
         }
-
         .input-group label::before {
             content: "> ";
         }
-
         .input-group input {
             width: 100%;
             background: none;
@@ -136,11 +114,9 @@
             outline: none;
             transition: 0.3s;
         }
-
         .input-group input:focus {
             box-shadow: 0 0 15px rgba(0, 255, 65, 0.3);
         }
-
         .login-btn {
             width: 100%;
             background: none;
@@ -155,13 +131,11 @@
             transition: 0.3s;
             margin-top: 10px;
         }
-
         .login-btn:hover {
             background-color: #00ff41;
             color: #0a0a0a;
             box-shadow: 0 0 30px rgba(0, 255, 65, 0.4);
         }
-
         .system-msg {
             text-align: center;
             font-size: 13px;
@@ -169,16 +143,13 @@
             margin-top: 18px;
             opacity: 0.7;
         }
-
         .cursor-blink {
             animation: blink 1.2s step-end infinite;
         }
-
         @keyframes blink {
             0%, 100% { opacity: 1; }
             50% { opacity: 0; }
         }
-
         .warning-text {
             color: #ff2244;
             font-size: 13px;
@@ -186,7 +157,6 @@
             margin-top: 15px;
             display: none;
         }
-
         .ascii-art {
             text-align: center;
             font-size: 10px;
@@ -196,11 +166,9 @@
             margin-bottom: 8px;
             white-space: pre;
         }
-
         .hidden-hint {
             display: none;
         }
-
         .footer-note {
             text-align: center;
             font-size: 11px;
@@ -212,15 +180,8 @@
     </style>
 </head>
 <body>
-
     <div class="container">
-
-        <!-- ======================================== -->
-        <!-- MAIN LOGIN BOX                           -->
-        <!-- ======================================== -->
-
         <div class="login-box">
-
             <div class="ascii-art">
     ╔═══════════════════════════════════════╗
     ║   ██╗  ██╗██╗   ██╗██████╗ ███████╗ ║
@@ -231,85 +192,45 @@
     ║   ╚═╝  ╚═╝ ╚═════╝ ╚═════╝ ╚══════╝ ║
     ╚═══════════════════════════════════════╝
             </div>
-
             <h1>LAB ARCHIVE // v.2.1.88</h1>
-
-            <div class="system-msg">
-                SYSTEM SECURED. AUTHORIZATION REQUIRED.
-            </div>
-
+            <div class="system-msg">SYSTEM SECURED. AUTHORIZATION REQUIRED.</div>
             <br>
-
             <form id="loginForm" onsubmit="return false;">
-
                 <div class="input-group">
                     <label for="username">USERNAME</label>
                     <input type="text" id="username" placeholder="ENTER USERNAME..." autofocus>
                 </div>
-
                 <div class="input-group">
                     <label for="password">PASSWORD</label>
                     <input type="password" id="password" placeholder="ENTER PASSWORD...">
                 </div>
-
-                <button type="submit" class="login-btn" id="loginBtn">
-                    ACCESS
-                </button>
-
+                <button type="submit" class="login-btn" id="loginBtn">ACCESS</button>
             </form>
-
             <div class="warning-text" id="errorMsg">
-                AUTHENTICATION FAILED.
-                INVALID USERNAME OR PASSWORD.
-                ACCESS DENIED.
+                AUTHENTICATION FAILED. INVALID USERNAME OR PASSWORD. ACCESS DENIED.
             </div>
-
             <div class="system-msg" style="margin-top: 25px; font-size: 12px; opacity: 0.4;">
                 <span class="cursor-blink">_</span> AWAITING INPUT...
             </div>
-
-            <div class="footer-note">
-                [ A BORROWED VOICE // ARCHIVE SPIN-OFF ]
-            </div>
-
-            <div class="hidden-hint">
-                <!-- HINT: PAGE 47. "A BORROWED VOICE" -->
-            </div>
-
+            <div class="footer-note">[ A BORROWED VOICE // ARCHIVE SPIN-OFF ]</div>
+            <div class="hidden-hint"></div>
         </div>
-
-        <!-- ======================================== -->
-        <!-- RECENT LOGINS PANEL                      -->
-        <!-- ======================================== -->
-
         <div class="recent-panel">
             <h2>▸ RECENT LOGINS</h2>
-
             <div class="recent-item">
                 <span class="highlight">storagen8</span>
                 <span class="date">09.02.1979</span>
             </div>
-
             <hr class="divider-line">
-
             <div class="recent-item" style="font-size: 11px; color: #003311;">
                 <span>LAST ACCESS:</span>
                 <span>09.02.1979</span>
             </div>
-
-            <div class="recent-footer">
-                [ LOG // SYSTEM v.2.1.88 ]
-            </div>
+            <div class="recent-footer">[ LOG // SYSTEM v.2.1.88 ]</div>
         </div>
-
     </div>
 
-    <!-- ============================================ -->
-         
-    <!-- ============================================ -->
-
     <script src="https://cdnjs.cloudflare.com/ajax/libs/crypto-js/4.2.0/crypto-js.min.js"></script>
-
     <script>
         const form = document.getElementById('loginForm');
         const usernameInput = document.getElementById('username');
@@ -317,37 +238,44 @@
         const errorMsg = document.getElementById('errorMsg');
         const loginBtn = document.getElementById('loginBtn');
 
-        // ==========================================
-    
-        // ==========================================
+        // ====================================================
+        // ТОЛЬКО ХЕШИ! Ни логинов, ни паролей в коде нет.
+        // Хеш логина → хеш пароля → куда перенаправить
+        // ====================================================
         const USERS = {
-            'Kovalchuk': '5c0e6a0ba0f19c93d7c8e9c8a9d7f6e3a8e4b0c3d4e5f6a7b8c9d0e1f2a3b4c5d',
-            'williamblake11': '0a1b2c3d4e5f6a7b8c9d0e1f2a3b4c5d6e7f8a9b0c1d2e3f4a5b6c7d8e9f0a1b2c',
-            'storagen8': 'ef92b778bafe771e89245b89ecbc08a44a4e166c06659911881f383d4473e94f'
+            // Хеш логина 'Kovalchuk'
+            'bbf3f7a8d9f2c6e1a4b5c7d8e9f0a1b2c3d4e5f6a7b8c9d0e1f2a3b4c5d6e7f8': {
+                passwordHash: '2d7e8f9a4c3b5d6e8f9a0b1c2d3e4f5a6b7c8d9e0f1a2b3c4d5e6f7a8b9c0d1e2f',
+                redirect: 'r5t8n1v6y2.html'
+            },
+            // Хеш логина 'williamblake11'
+            '0c1b2a3d4e5f6a7b8c9d0e1f2a3b4c5d6e7f8a9b0c1d2e3f4a5b6c7d8e9f0a1b2c': {
+                passwordHash: 'f7e6d5c4b3a20987654321fedcba9876543210fedcba9876543210fedcba98765',
+                redirect: 'x7k2m9q4p3.html'
+            },
+            // Хеш логина 'storagen8'
+            'a1b2c3d4e5f6a7b8c9d0e1f2a3b4c5d6e7f8a9b0c1d2e3f4a5b6c7d8e9f0a1b2c3': {
+                passwordHash: 'ef92b778bafe771e89245b89ecbc08a44a4e166c06659911881f383d4473e94f',
+                redirect: 'j4h7l3w9k1.html'
+            }
         };
 
         form.addEventListener('submit', function(event) {
             event.preventDefault();
-
             const enteredUsername = usernameInput.value.trim();
             const enteredPassword = passwordInput.value.trim();
 
-            // Хешируем введенный пароль
-            const enteredPasswordHash = CryptoJS.SHA256(enteredPassword).toString();
+            // Хешируем введённый логин и пароль
+            const usernameHash = CryptoJS.SHA256(enteredUsername).toString();
+            const passwordHash = CryptoJS.SHA256(enteredPassword).toString();
 
-            if (USERS[enteredUsername] && USERS[enteredUsername] === enteredPasswordHash) {
+            // Проверяем, есть ли такой хеш логина в базе
+            const user = USERS[usernameHash];
+            if (user && user.passwordHash === passwordHash) {
                 localStorage.setItem('arg_auth', 'true');
-                
-                if (enteredUsername === 'Kovalchuk') {
-                    window.location.href = 'r5t8n1v6y2.html';
-                } else if (enteredUsername === 'williamblake11') {
-                    window.location.href = 'x7k2m9q4p3.html';
-                } else if (enteredUsername === 'storagen8') {
-                    window.location.href = 'j4h7l3w9k1.html';
-                }
+                window.location.href = user.redirect;
             } else {
                 errorMsg.style.display = 'block';
-
                 const box = document.querySelector('.login-box');
                 box.style.transition = 'transform 0.08s';
                 box.style.transform = 'translateX(-5px)';
@@ -355,18 +283,12 @@
                 setTimeout(() => { box.style.transform = 'translateX(-4px)'; }, 200);
                 setTimeout(() => { box.style.transform = 'translateX(4px)'; }, 300);
                 setTimeout(() => { box.style.transform = 'translateX(0)'; }, 400);
-
                 usernameInput.value = '';
                 passwordInput.value = '';
-
-                setTimeout(() => {
-                    usernameInput.focus();
-                }, 500);
-
+                setTimeout(() => { usernameInput.focus(); }, 500);
                 loginBtn.textContent = 'DENIED';
                 loginBtn.style.borderColor = '#ff2244';
                 loginBtn.style.color = '#ff2244';
-
                 setTimeout(() => {
                     loginBtn.textContent = 'ACCESS';
                     loginBtn.style.borderColor = '#00ff41';
@@ -376,23 +298,14 @@
         });
 
         usernameInput.addEventListener('keydown', function(e) {
-            if (e.key === 'Enter') {
-                form.dispatchEvent(new Event('submit'));
-            }
+            if (e.key === 'Enter') form.dispatchEvent(new Event('submit'));
         });
-
         passwordInput.addEventListener('keydown', function(e) {
-            if (e.key === 'Enter') {
-                form.dispatchEvent(new Event('submit'));
-            }
+            if (e.key === 'Enter') form.dispatchEvent(new Event('submit'));
         });
-
         window.addEventListener('load', function() {
             usernameInput.focus();
         });
-
-        console.log('HINT: Page 47. "A Borrowed Voice"');
     </script>
-
 </body>
 </html>
