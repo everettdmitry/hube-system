@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <title>LAB ARCHIVE // MESSAGE LOG</title>
+    <title>LAB ARCHIVE // COMMUNICATIONS</title>
     <style>
         body {
             background-color: #0a0a0a;
@@ -17,25 +17,92 @@
             box-sizing: border-box;
         }
 
-        .chat-box {
-            border: 2px solid #00ff41;
-            padding: 30px 35px;
-            max-width: 750px;
+        .main-container {
+            display: flex;
+            gap: 20px;
+            max-width: 900px;
             width: 100%;
+            height: 80vh;
+            border: 2px solid #00ff41;
             box-shadow: 0 0 30px rgba(0, 255, 65, 0.15);
             background-color: #0a0a0a;
         }
 
-        .chat-box h1 {
+        /* Левая панель - Список контактов */
+        .sidebar {
+            width: 30%;
+            border-right: 1px solid #00aa33;
+            display: flex;
+            flex-direction: column;
+            background-color: #050505;
+        }
+
+        .sidebar-header {
+            padding: 15px;
+            border-bottom: 1px solid #00aa33;
             text-align: center;
+            font-size: 14px;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+        }
+
+        .contact-list {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+            overflow-y: auto;
+        }
+
+        .contact-item {
+            padding: 15px;
+            border-bottom: 1px solid #001a0a;
+            cursor: pointer;
+            transition: 0.3s;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .contact-item:hover {
+            background-color: #001a0a;
+        }
+
+        .contact-item.active {
+            background-color: #003311;
+            color: #00ff41;
+            border-left: 4px solid #00ff41;
+        }
+
+        .contact-name {
+            font-weight: bold;
+            margin-bottom: 5px;
+        }
+
+        .contact-date {
+            font-size: 11px;
+            color: #005522;
+        }
+
+        /* Правая панель - Окно чата */
+        .chat-area {
+            width: 70%;
+            display: flex;
+            flex-direction: column;
+            padding: 20px;
+            overflow-y: auto;
+        }
+
+        .chat-header {
+            border-bottom: 1px solid #00ff41;
+            padding-bottom: 10px;
+            margin-bottom: 20px;
+            text-align: center;
+        }
+
+        .chat-header h2 {
             font-size: 16px;
             font-weight: normal;
             letter-spacing: 3px;
-            text-transform: uppercase;
-            border-bottom: 1px solid #00ff41;
-            padding-bottom: 10px;
-            margin-top: 0;
-            margin-bottom: 20px;
+            margin: 0;
         }
 
         .message {
@@ -55,34 +122,12 @@
             letter-spacing: 1px;
         }
 
-        .message .username.klemenko {
-            color: #00aa33;
-        }
-
-        .message .username.kovalchuk {
-            color: #00ff41;
-        }
-
+        .message .username.klemenko { color: #00aa33; }
+        .message .username.kovalchuk { color: #00ff41; }
+        
         .message .text {
             color: #00dd55;
             margin-left: 10px;
-        }
-
-        .system-line {
-            text-align: center;
-            font-size: 12px;
-            color: #005522;
-            margin-top: 20px;
-            opacity: 0.5;
-        }
-
-        .cursor-blink {
-            animation: blink 1.2s step-end infinite;
-        }
-
-        @keyframes blink {
-            0%, 100% { opacity: 1; }
-            50% { opacity: 0; }
         }
 
         .footer-note {
@@ -92,33 +137,34 @@
             margin-top: 20px;
             opacity: 0.4;
             letter-spacing: 1px;
-            border-top: 1px solid #003311;
-            padding-top: 15px;
         }
 
-        .ascii-divider {
+        .hidden-chat {
+            display: none;
+        }
+
+        .null-msg {
             text-align: center;
-            font-size: 10px;
             color: #003311;
-            opacity: 0.3;
-            margin: 10px 0;
-            letter-spacing: 2px;
+            margin-top: 50px;
+            font-size: 24px;
+            letter-spacing: 5px;
         }
 
-        .timestamp {
-            color: #003311;
-            font-size: 12px;
-            display: block;
-            text-align: center;
-            margin: 12px 0 8px 0;
-        }
-
-        .message .highlight {
-            color: #ffaa00;
-        }
-
-        .last-msg {
-            margin-bottom: 0;
+        /* Адаптив для мобильных */
+        @media (max-width: 768px) {
+            .main-container {
+                flex-direction: column;
+                height: auto;
+            }
+            .sidebar, .chat-area {
+                width: 100%;
+                border-right: none;
+            }
+            .sidebar {
+                border-bottom: 1px solid #00aa33;
+                max-height: 200px;
+            }
         }
     </style>
 </head>
@@ -130,75 +176,124 @@
         localStorage.removeItem('arg_auth');
     </script>
 
-    <div class="chat-box">
-
-        <h1>▸ MESSAGE LOG // SYSTEM v.2.1.88</h1>
-
-        <div class="ascii-divider">
-            ═══════════════════════════════════════════
+    <div class="main-container">
+        <!-- Список логов -->
+        <div class="sidebar">
+            <div class="sidebar-header">▸ ARCHIVED LOGS</div>
+            <ul class="contact-list">
+                <li class="contact-item active" onclick="openChat('chat_klemenko', this)">
+                    <span class="contact-name">klemenko44</span>
+                    <span class="contact-date">03.03.1983</span>
+                </li>
+                <li class="contact-item" onclick="openChat('chat_joseph', this)">
+                    <span class="contact-name">joseph1010</span>
+                    <span class="contact-date">[ NO DATA ]</span>
+                </li>
+                <li class="contact-item" onclick="openChat('chat_fosforov', this)">
+                    <span class="contact-name">fosforov9014</span>
+                    <span class="contact-date">[ NO DATA ]</span>
+                </li>
+                <li class="contact-item" onclick="openChat('chat_nazko', this)">
+                    <span class="contact-name">nazkooscar09</span>
+                    <span class="contact-date">[ NO DATA ]</span>
+                </li>
+            </ul>
         </div>
 
-        <div style="margin: 5px 0 15px 0; font-size: 13px; color: #003311; text-align: center;">
-            DATE: 03.03.1983 // CHANNEL: SECURE // STATUS: ARCHIVED
-        </div>
+        <!-- Область чата -->
+        <div class="chat-area">
+            
+            <!-- Чат 1: Клеменко -->
+            <div id="chat_klemenko" class="chat-content">
+                <div class="chat-header">
+                    <h2>LOG ID: 88-ALPHA // 03.03.1983</h2>
+                </div>
+                
+                <div class="message">
+                    <span class="time">10:02</span>
+                    <span class="username klemenko">klemenko44:</span>
+                    <span class="text">We almost failed the test because of your antics. Please stop it. And what is this sense of entitlement? Who gave you the right to control the whole process?</span>
+                </div>
 
-        <div class="message">
-            <span class="time">10:02</span>
-            <span class="username klemenko">klemenko44:</span>
-            <span class="text">We almost failed the test because of your antics. Please stop it. And what is this sense of entitlement? Who gave you the right to control the whole process?</span>
-        </div>
+                <div class="message">
+                    <span class="time">10:05</span>
+                    <span class="username kovalchuk">Kovalchuk:</span>
+                    <span class="text">This is none of your business. Do as you're told, or you can say goodbye to your position.</span>
+                </div>
 
-        <div class="message">
-            <span class="time">10:05</span>
-            <span class="username kovalchuk">Kovalchuk:</span>
-            <span class="text">This is none of your business. Do as you're told, or you can say goodbye to your position.</span>
-        </div>
+                <div class="message">
+                    <span class="time">10:07</span>
+                    <span class="username klemenko">klemenko44:</span>
+                    <span class="text">I'm already planning to quit. It's impossible to work here! Don't you think so?</span>
+                </div>
 
-        <div class="message">
-            <span class="time">10:07</span>
-            <span class="username klemenko">klemenko44:</span>
-            <span class="text">I'm already planning to quit. It's impossible to work here! Don't you think so?</span>
-        </div>
+                <div class="message">
+                    <span class="time">10:11</span>
+                    <span class="username kovalchuk">Kovalchuk:</span>
+                    <span class="text">Everything suits me, Klemenko. We'll talk a bit later at home, ok?</span>
+                </div>
 
-        <div class="message">
-            <span class="time">10:11</span>
-            <span class="username kovalchuk">Kovalchuk:</span>
-            <span class="text">Everything suits me, Klemenko. We'll talk a bit later at home, ok?</span>
-        </div>
+                <div class="message">
+                    <span class="time">10:15</span>
+                    <span class="username klemenko">klemenko44:</span>
+                    <span class="text">Don't you want the evidence to remain in the website's logs?</span>
+                </div>
 
-        <div class="message">
-            <span class="time">10:15</span>
-            <span class="username klemenko">klemenko44:</span>
-            <span class="text">Don't you want the evidence to remain in the website's logs?</span>
-        </div>
+                <div class="message">
+                    <span class="time">10:16</span>
+                    <span class="username kovalchuk">Kovalchuk:</span>
+                    <span class="text">What kind of evidence? What are you talking about?</span>
+                </div>
 
-        <div class="message">
-            <span class="time">10:16</span>
-            <span class="username kovalchuk">Kovalchuk:</span>
-            <span class="text">What kind of evidence? What are you talking about?</span>
-        </div>
+                <div class="message">
+                    <span class="time">10:16</span>
+                    <span class="username kovalchuk">Kovalchuk:</span>
+                    <span class="text">The entire test went perfectly. Only you, professor, were in my way and blocked my actions.</span>
+                </div>
 
-        <div class="message">
-            <span class="time">10:16</span>
-            <span class="username kovalchuk">Kovalchuk:</span>
-            <span class="text">The entire test went perfectly. Only you, professor, were in my way and blocked my actions.</span>
-        </div>
+                <div class="message last-msg">
+                    <span class="time">10:17</span>
+                    <span class="username klemenko">klemenko44:</span>
+                    <span class="text">We'll talk about this at home, since you don't want to admit your guilt like this.</span>
+                </div>
+            </div>
 
-        <div class="message last-msg">
-            <span class="time">10:17</span>
-            <span class="username klemenko">klemenko44:</span>
-            <span class="text">We'll talk about this at home, since you don't want to admit your guilt like this.</span>
-        </div>
+            <!-- Заглушки для остальных -->
+            <div id="chat_joseph" class="chat-content hidden-chat">
+                <div class="chat-header"><h2>USER: joseph1010</h2></div>
+                <div class="null-msg">NULL</div>
+            </div>
 
-        <div class="ascii-divider">
-            ═══════════════════════════════════════════
-        </div>
+            <div id="chat_fosforov" class="chat-content hidden-chat">
+                <div class="chat-header"><h2>USER: fosforov9014</h2></div>
+                <div class="null-msg">NULL</div>
+            </div>
 
-        <div class="footer-note">
-            [ A BORROWED VOICE // ARCHIVE SPIN-OFF ]
-        </div>
+            <div id="chat_nazko" class="chat-content hidden-chat">
+                <div class="chat-header"><h2>USER: nazkooscar09</h2></div>
+                <div class="null-msg">NULL</div>
+            </div>
 
+            <div class="footer-note">
+                [ A BORROWED VOICE // ARCHIVE SPIN-OFF ]
+            </div>
+        </div>
     </div>
 
+    <script>
+        function openChat(chatId, element) {
+            // Скрываем все чаты
+            const chats = document.querySelectorAll('.chat-content');
+            chats.forEach(chat => chat.classList.add('hidden-chat'));
+
+            // Показываем нужный
+            document.getElementById(chatId).classList.remove('hidden-chat');
+
+            // Обновляем активный элемент в списке
+            const items = document.querySelectorAll('.contact-item');
+            items.forEach(item => item.classList.remove('active'));
+            element.classList.add('active');
+        }
+    </script>
 </body>
 </html>
