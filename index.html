@@ -51,6 +51,10 @@
             margin-bottom: 4px;
         }
 
+        .input-group label::before {
+            content: "> ";
+        }
+
         .input-group input {
             width: 100%;
             background: none;
@@ -135,10 +139,6 @@
             margin-top: 20px;
             opacity: 0.4;
             letter-spacing: 1px;
-        }
-
-        .input-group label::before {
-            content: "> ";
         }
     </style>
 </head>
@@ -248,8 +248,13 @@
         const errorMsg = document.getElementById('errorMsg');
         const loginBtn = document.getElementById('loginBtn');
 
-        const CORRECT_USERNAME = 'Kovalchuk';
-        const CORRECT_PASSWORD = '7341542';
+        // ============================================
+        // USERS LIST (add new users here)
+        // ============================================
+        const USERS = {
+            'Kovalchuk': '7341542',
+            'williamblake11': '05241945'
+        };
 
         form.addEventListener('submit', function(event) {
             event.preventDefault();
@@ -257,8 +262,14 @@
             const enteredUsername = usernameInput.value.trim();
             const enteredPassword = passwordInput.value.trim();
 
-            if (enteredUsername === CORRECT_USERNAME && enteredPassword === CORRECT_PASSWORD) {
-                window.location.href = 'secret12.html';
+            // Check if credentials match any user
+            if (USERS[enteredUsername] && USERS[enteredUsername] === enteredPassword) {
+                // Redirect based on username
+                if (enteredUsername === 'Kovalchuk') {
+                    window.location.href = 'secret12.html';
+                } else if (enteredUsername === 'williamblake11') {
+                    window.location.href = 'secret11.html';
+                }
             } else {
                 errorMsg.style.display = 'block';
 
