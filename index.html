@@ -12,10 +12,18 @@
             display: flex;
             justify-content: center;
             align-items: center;
-            height: 100vh;
+            min-height: 100vh;
             margin: 0;
             padding: 20px;
             box-sizing: border-box;
+        }
+
+        .container {
+            display: flex;
+            gap: 30px;
+            align-items: flex-start;
+            flex-wrap: wrap;
+            justify-content: center;
         }
 
         .login-box {
@@ -38,6 +46,67 @@
             margin-top: 0;
         }
 
+        /* === RECENT LOGINS PANEL === */
+        .recent-panel {
+            border: 2px solid #00aa33;
+            padding: 20px 25px;
+            max-width: 240px;
+            width: 100%;
+            background-color: #050505;
+            box-shadow: 0 0 20px rgba(0, 255, 65, 0.05);
+            border-color: #005522;
+        }
+
+        .recent-panel h2 {
+            font-size: 13px;
+            font-weight: normal;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+            color: #005522;
+            border-bottom: 1px solid #003311;
+            padding-bottom: 8px;
+            margin-top: 0;
+            margin-bottom: 12px;
+        }
+
+        .recent-item {
+            font-size: 14px;
+            color: #00aa33;
+            padding: 5px 0;
+            border-bottom: 1px solid #001a0a;
+            display: flex;
+            justify-content: space-between;
+        }
+
+        .recent-item .highlight {
+            color: #00ff41;
+        }
+
+        .recent-item .guest {
+            color: #005522;
+        }
+
+        .recent-item .date {
+            color: #003311;
+            font-size: 12px;
+        }
+
+        .recent-footer {
+            font-size: 10px;
+            color: #002211;
+            margin-top: 12px;
+            text-align: right;
+            letter-spacing: 1px;
+        }
+
+        .divider-line {
+            color: #003311;
+            border: none;
+            border-top: 1px solid #003311;
+            margin: 10px 0;
+        }
+
+        /* === REST OF STYLES === */
         .input-group {
             margin: 18px 0;
         }
@@ -144,13 +213,15 @@
 </head>
 <body>
 
-    <div class="login-box">
+    <div class="container">
 
         <!-- ======================================== -->
-        <!-- ASCII ART                                -->
+        <!-- MAIN LOGIN BOX                           -->
         <!-- ======================================== -->
 
-        <div class="ascii-art">
+        <div class="login-box">
+
+            <div class="ascii-art">
     ╔═══════════════════════════════════════╗
     ║   ██╗  ██╗██╗   ██╗██████╗ ███████╗ ║
     ║   ██║  ██║██║   ██║██╔══██╗██╔════╝ ║
@@ -159,80 +230,86 @@
     ║   ██║  ██║╚██████╔╝██████╔╝███████╗ ║
     ║   ╚═╝  ╚═╝ ╚═════╝ ╚═════╝ ╚══════╝ ║
     ╚═══════════════════════════════════════╝
-        </div>
-
-        <!-- ======================================== -->
-        <!-- HEADER                                   -->
-        <!-- ======================================== -->
-
-        <h1>LAB ARCHIVE // v.2.1.88</h1>
-
-        <!-- ======================================== -->
-        <!-- SYSTEM MESSAGE                           -->
-        <!-- ======================================== -->
-
-        <div class="system-msg">
-            SYSTEM SECURED. AUTHORIZATION REQUIRED.
-        </div>
-
-        <br>
-
-        <!-- ======================================== -->
-        <!-- LOGIN FORM                               -->
-        <!-- ======================================== -->
-
-        <form id="loginForm" onsubmit="return false;">
-
-            <div class="input-group">
-                <label for="username">USERNAME</label>
-                <input type="text" id="username" placeholder="ENTER USERNAME..." autofocus>
             </div>
 
-            <div class="input-group">
-                <label for="password">PASSWORD</label>
-                <input type="password" id="password" placeholder="ENTER PASSWORD...">
+            <h1>LAB ARCHIVE // v.2.1.88</h1>
+
+            <div class="system-msg">
+                SYSTEM SECURED. AUTHORIZATION REQUIRED.
             </div>
 
-            <button type="submit" class="login-btn" id="loginBtn">
-                ACCESS
-            </button>
+            <br>
 
-        </form>
+            <form id="loginForm" onsubmit="return false;">
 
-        <!-- ======================================== -->
-        <!-- ERROR MESSAGE                            -->
-        <!-- ======================================== -->
+                <div class="input-group">
+                    <label for="username">USERNAME</label>
+                    <input type="text" id="username" placeholder="ENTER USERNAME..." autofocus>
+                </div>
 
-        <div class="warning-text" id="errorMsg">
-            AUTHENTICATION FAILED.
-            INVALID USERNAME OR PASSWORD.
-            ACCESS DENIED.
+                <div class="input-group">
+                    <label for="password">PASSWORD</label>
+                    <input type="password" id="password" placeholder="ENTER PASSWORD...">
+                </div>
+
+                <button type="submit" class="login-btn" id="loginBtn">
+                    ACCESS
+                </button>
+
+            </form>
+
+            <div class="warning-text" id="errorMsg">
+                AUTHENTICATION FAILED.
+                INVALID USERNAME OR PASSWORD.
+                ACCESS DENIED.
+            </div>
+
+            <div class="system-msg" style="margin-top: 25px; font-size: 12px; opacity: 0.4;">
+                <span class="cursor-blink">_</span> AWAITING INPUT...
+            </div>
+
+            <div class="footer-note">
+                [ A BORROWED VOICE // ARCHIVE SPIN-OFF ]
+            </div>
+
+            <div class="hidden-hint">
+                <!-- HINT: PAGE 47. "A BORROWED VOICE" -->
+            </div>
+
         </div>
 
         <!-- ======================================== -->
-        <!-- TERMINAL CURSOR LINE                     -->
+        <!-- RECENT LOGINS PANEL                      -->
         <!-- ======================================== -->
 
-        <div class="system-msg" style="margin-top: 25px; font-size: 12px; opacity: 0.4;">
-            <span class="cursor-blink">_</span> AWAITING INPUT...
-        </div>
+        <div class="recent-panel">
+            <h2>▸ RECENT LOGINS</h2>
 
-        <!-- ======================================== -->
-        <!-- FOOTER                                   -->
-        <!-- ======================================== -->
+            <div class="recent-item">
+                <span class="highlight">storagen8</span>
+                <span class="date">09.02.1979</span>
+            </div>
 
-        <div class="footer-note">
-            [ A BORROWED VOICE // ARCHIVE SPIN-OFF ]
-        </div>
+            <div class="recent-item">
+                <span class="guest">williamblake11</span>
+                <span class="date">14.03.1988</span>
+            </div>
 
-        <!-- ======================================== -->
-        <!-- HIDDEN HINT                              -->
-        <!-- ======================================== -->
+            <div class="recent-item">
+                <span class="guest">Kovalchuk</span>
+                <span class="date">14.03.1988</span>
+            </div>
 
-        <div class="hidden-hint">
-            <!-- 
-                HINT: PAGE 47. "A BORROWED VOICE".
-            -->
+            <hr class="divider-line">
+
+            <div class="recent-item" style="font-size: 11px; color: #003311;">
+                <span>LAST ACCESS:</span>
+                <span>09.02.1979</span>
+            </div>
+
+            <div class="recent-footer">
+                [ LOG // SYSTEM v.2.1.88 ]
+            </div>
         </div>
 
     </div>
@@ -248,12 +325,10 @@
         const errorMsg = document.getElementById('errorMsg');
         const loginBtn = document.getElementById('loginBtn');
 
-        // ============================================
-        // USERS LIST (add new users here)
-        // ============================================
         const USERS = {
             'Kovalchuk': '7341542',
-            'williamblake11': '05241945'
+            'williamblake11': '05241945',
+            'storagen8': '12345678'
         };
 
         form.addEventListener('submit', function(event) {
@@ -262,13 +337,13 @@
             const enteredUsername = usernameInput.value.trim();
             const enteredPassword = passwordInput.value.trim();
 
-            // Check if credentials match any user
             if (USERS[enteredUsername] && USERS[enteredUsername] === enteredPassword) {
-                // Redirect based on username
                 if (enteredUsername === 'Kovalchuk') {
                     window.location.href = 'secret12.html';
                 } else if (enteredUsername === 'williamblake11') {
                     window.location.href = 'secret11.html';
+                } else if (enteredUsername === 'storagen8') {
+                    window.location.href = 'secret8.html';
                 }
             } else {
                 errorMsg.style.display = 'block';
@@ -316,7 +391,8 @@
             usernameInput.focus();
         });
 
-        console.log('HINT: Page 47. "A Borrowed Voice".');
+        console.log('HINT: Page 47. "A Borrowed Voice"');
+        console.log('Users:', Object.keys(USERS));
     </script>
 
 </body>
