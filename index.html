@@ -128,7 +128,6 @@
             display: none;
         }
 
-        /* Footer note */
         .footer-note {
             text-align: center;
             font-size: 11px;
@@ -144,7 +143,7 @@
     <div class="login-box">
 
         <!-- ======================================== -->
-        <!-- ASCII ART (looks like old computer logo) -->
+        <!-- ASCII ART                                -->
         <!-- ======================================== -->
 
         <div class="ascii-art">
@@ -176,7 +175,7 @@
         <br>
 
         <!-- ======================================== -->
-        <!-- LOGIN FORM (DOES NOT ACTUALLY LOG IN)    -->
+        <!-- LOGIN FORM                               -->
         <!-- ======================================== -->
 
         <form id="loginForm" onsubmit="return false;">
@@ -198,7 +197,7 @@
         </form>
 
         <!-- ======================================== -->
-        <!-- ERROR MESSAGE (appears on click)         -->
+        <!-- ERROR MESSAGE                            -->
         <!-- ======================================== -->
 
         <div class="warning-text" id="errorMsg">
@@ -216,7 +215,7 @@
         </div>
 
         <!-- ======================================== -->
-        <!-- FOOTER (ARG reference)                   -->
+        <!-- FOOTER                                   -->
         <!-- ======================================== -->
 
         <div class="footer-note">
@@ -224,13 +223,12 @@
         </div>
 
         <!-- ======================================== -->
-        <!-- HIDDEN HINT (only visible in source)     -->
+        <!-- HIDDEN HINT                              -->
         <!-- ======================================== -->
 
         <div class="hidden-hint">
             <!-- 
-                HINT FOR THOSE WHO VIEW PAGE SOURCE:
-                CHECK PAGE 47. "A BORROWED VOICE".
+                HINT: PAGE 47. "A BORROWED VOICE".
                 SOMETHING IS HIDDEN THERE.
             -->
         </div>
@@ -238,7 +236,7 @@
     </div>
 
     <!-- ============================================ -->
-    <!-- SCRIPT (simulates login, never grants access) -->
+    <!-- SCRIPT (with real login check)               -->
     <!-- ============================================ -->
 
     <script>
@@ -248,40 +246,55 @@
         const errorMsg = document.getElementById('errorMsg');
         const loginBtn = document.getElementById('loginBtn');
 
+        // ============================================
+        // CORRECT CREDENTIALS
+        // ============================================
+        const CORRECT_USERNAME = 'Kovalchuk';
+        const CORRECT_PASSWORD = '7341542';
+
         form.addEventListener('submit', function(event) {
             event.preventDefault();
 
-            // Show error message
-            errorMsg.style.display = 'block';
+            const enteredUsername = usernameInput.value.trim();
+            const enteredPassword = passwordInput.value.trim();
 
-            // Shake effect on the box
-            const box = document.querySelector('.login-box');
-            box.style.transition = 'transform 0.08s';
-            box.style.transform = 'translateX(-5px)';
-            setTimeout(() => { box.style.transform = 'translateX(5px)'; }, 100);
-            setTimeout(() => { box.style.transform = 'translateX(-4px)'; }, 200);
-            setTimeout(() => { box.style.transform = 'translateX(4px)'; }, 300);
-            setTimeout(() => { box.style.transform = 'translateX(0)'; }, 400);
+            // Check if credentials are correct
+            if (enteredUsername === CORRECT_USERNAME && enteredPassword === CORRECT_PASSWORD) {
+                // SUCCESS — redirect to secret page
+                window.location.href = 'secret12.html';
+            } else {
+                // FAIL — show error message
+                errorMsg.style.display = 'block';
 
-            // Clear fields
-            usernameInput.value = '';
-            passwordInput.value = '';
+                // Shake effect
+                const box = document.querySelector('.login-box');
+                box.style.transition = 'transform 0.08s';
+                box.style.transform = 'translateX(-5px)';
+                setTimeout(() => { box.style.transform = 'translateX(5px)'; }, 100);
+                setTimeout(() => { box.style.transform = 'translateX(-4px)'; }, 200);
+                setTimeout(() => { box.style.transform = 'translateX(4px)'; }, 300);
+                setTimeout(() => { box.style.transform = 'translateX(0)'; }, 400);
 
-            // Refocus on username
-            setTimeout(() => {
-                usernameInput.focus();
-            }, 500);
+                // Clear fields
+                usernameInput.value = '';
+                passwordInput.value = '';
 
-            // Temporarily change button style
-            loginBtn.textContent = '⛔ DENIED ⛔';
-            loginBtn.style.borderColor = '#ff2244';
-            loginBtn.style.color = '#ff2244';
+                // Refocus
+                setTimeout(() => {
+                    usernameInput.focus();
+                }, 500);
 
-            setTimeout(() => {
-                loginBtn.textContent = '⚡ ACCESS ⚡';
-                loginBtn.style.borderColor = '#00ff41';
-                loginBtn.style.color = '#00ff41';
-            }, 1500);
+                // Temporarily change button style
+                loginBtn.textContent = '⛔ DENIED ⛔';
+                loginBtn.style.borderColor = '#ff2244';
+                loginBtn.style.color = '#ff2244';
+
+                setTimeout(() => {
+                    loginBtn.textContent = '⚡ ACCESS ⚡';
+                    loginBtn.style.borderColor = '#00ff41';
+                    loginBtn.style.color = '#00ff41';
+                }, 1500);
+            }
         });
 
         // Enter key triggers submit
@@ -302,7 +315,7 @@
             usernameInput.focus();
         });
 
-        // Hidden Easter egg in console
+        // Easter egg in console
         console.log('🔍 HINT: Page 47. "A Borrowed Voice".');
     </script>
 
