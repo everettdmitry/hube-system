@@ -302,6 +302,8 @@
             </div>
         </div>
 
+    </div>
+
     <!-- ============================================ -->
     <!-- SCRIPT                                       -->
     <!-- ============================================ -->
@@ -326,6 +328,9 @@
             const enteredPassword = passwordInput.value.trim();
 
             if (USERS[enteredUsername] && USERS[enteredUsername] === enteredPassword) {
+                // Set authentication flag
+                localStorage.setItem('arg_auth', 'true');
+                
                 if (enteredUsername === 'Kovalchuk') {
                     window.location.href = 'secret12.html';
                 } else if (enteredUsername === 'williamblake11') {
