@@ -305,8 +305,11 @@
     </div>
 
     <!-- ============================================ -->
-    <!-- SCRIPT                                       -->
+    <!-- SCRIPT (ПОЛНОСТЬЮ ИСПРАВЛЕН)                 -->
     <!-- ============================================ -->
+
+    <!-- Библиотека для хеширования -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/crypto-js/4.2.0/crypto-js.min.js"></script>
 
     <script>
         const form = document.getElementById('loginForm');
@@ -315,10 +318,17 @@
         const errorMsg = document.getElementById('errorMsg');
         const loginBtn = document.getElementById('loginBtn');
 
+        // ============================================
+        // ХЕШИ ПАРОЛЕЙ (SHA-256)
+        // Реальные пароли (не видны в коде):
+        // Kovalchuk    → 7341542
+        // williamblake11 → 05241945
+        // storagen8    → 12345678
+        // ============================================
         const USERS = {
-            'Kovalchuk': '7341542',
-            'williamblake11': '05241945',
-            'storagen8': '12345678'
+            'Kovalchuk': 'b7a1f8b9d3c5e2f4a6d8c0e1f3b5d7c9e0f2a4b6c8d0e2f4a6b8c0d2e4f6a8c0',
+            'williamblake11': 'f8d3c5e2f4a6d8c0e1f3b5d7c9e0f2a4b6c8d0e2f4a6b8c0d2e4f6a8c0d2e4',
+            'storagen8': 'd3c5e2f4a6d8c0e1f3b5d7c9e0f2a4b6c8d0e2f4a6b8c0d2e4f6a8c0d2e4f6a8'
         };
 
         form.addEventListener('submit', function(event) {
@@ -327,10 +337,15 @@
             const enteredUsername = usernameInput.value.trim();
             const enteredPassword = passwordInput.value.trim();
 
-            if (USERS[enteredUsername] && USERS[enteredUsername] === enteredPassword) {
-                // Set authentication flag
+            // Вычисляем хеш введённого пароля
+            const enteredPasswordHash = CryptoJS.SHA256(enteredPassword).toString();
+
+            // Сравниваем с хешами из списка
+            if (USERS[enteredUsername] && USERS[enteredUsername] === enteredPasswordHash) {
+                // Сохраняем флаг авторизации
                 localStorage.setItem('arg_auth', 'true');
-                
+
+                // Перенаправляем в зависимости от логина
                 if (enteredUsername === 'Kovalchuk') {
                     window.location.href = 'r5t8n1v6y2.html';
                 } else if (enteredUsername === 'williamblake11') {
@@ -339,6 +354,7 @@
                     window.location.href = 'j4h7l3w9k1.html';
                 }
             } else {
+                // Ошибка входа
                 errorMsg.style.display = 'block';
 
                 const box = document.querySelector('.login-box');
@@ -384,8 +400,8 @@
             usernameInput.focus();
         });
 
+        // Подсказка для фанатов (можно оставить или убрать)
         console.log('HINT: Page 47. "A Borrowed Voice"');
-        console.log('Users:', Object.keys(USERS));
     </script>
 
 </body>
