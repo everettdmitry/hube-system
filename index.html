@@ -136,6 +136,10 @@
             opacity: 0.4;
             letter-spacing: 1px;
         }
+
+        .input-group label::before {
+            content: "> ";
+        }
     </style>
 </head>
 <body>
@@ -161,15 +165,14 @@
         <!-- HEADER                                   -->
         <!-- ======================================== -->
 
-        <h1>▌ LAB ARCHIVE // v.2.1.88 ▌</h1>
+        <h1>LAB ARCHIVE // v.2.1.88</h1>
 
         <!-- ======================================== -->
         <!-- SYSTEM MESSAGE                           -->
         <!-- ======================================== -->
 
         <div class="system-msg">
-            ⚡ SYSTEM SECURED. AUTHORIZATION REQUIRED.<br>
-            STAFF ONLY. UNAUTHORIZED ACCESS PROHIBITED.
+            SYSTEM SECURED. AUTHORIZATION REQUIRED.
         </div>
 
         <br>
@@ -181,17 +184,17 @@
         <form id="loginForm" onsubmit="return false;">
 
             <div class="input-group">
-                <label for="username">👤 USERNAME</label>
+                <label for="username">USERNAME</label>
                 <input type="text" id="username" placeholder="ENTER USERNAME..." autofocus>
             </div>
 
             <div class="input-group">
-                <label for="password">🔒 PASSWORD</label>
+                <label for="password">PASSWORD</label>
                 <input type="password" id="password" placeholder="ENTER PASSWORD...">
             </div>
 
             <button type="submit" class="login-btn" id="loginBtn">
-                ⚡ ACCESS ⚡
+                ACCESS
             </button>
 
         </form>
@@ -201,9 +204,9 @@
         <!-- ======================================== -->
 
         <div class="warning-text" id="errorMsg">
-            ❌ AUTHENTICATION FAILED.<br>
-            INVALID USERNAME OR PASSWORD.<br>
-            <span style="font-size: 11px; opacity: 0.6;">ACCESS DENIED. PLEASE TRY AGAIN LATER.</span>
+            AUTHENTICATION FAILED.
+            INVALID USERNAME OR PASSWORD.
+            ACCESS DENIED.
         </div>
 
         <!-- ======================================== -->
@@ -229,14 +232,13 @@
         <div class="hidden-hint">
             <!-- 
                 HINT: PAGE 47. "A BORROWED VOICE".
-                SOMETHING IS HIDDEN THERE.
             -->
         </div>
 
     </div>
 
     <!-- ============================================ -->
-    <!-- SCRIPT (with real login check)               -->
+    <!-- SCRIPT                                       -->
     <!-- ============================================ -->
 
     <script>
@@ -246,9 +248,6 @@
         const errorMsg = document.getElementById('errorMsg');
         const loginBtn = document.getElementById('loginBtn');
 
-        // ============================================
-        // CORRECT CREDENTIALS
-        // ============================================
         const CORRECT_USERNAME = 'Kovalchuk';
         const CORRECT_PASSWORD = '7341542';
 
@@ -258,15 +257,11 @@
             const enteredUsername = usernameInput.value.trim();
             const enteredPassword = passwordInput.value.trim();
 
-            // Check if credentials are correct
             if (enteredUsername === CORRECT_USERNAME && enteredPassword === CORRECT_PASSWORD) {
-                // SUCCESS — redirect to secret page
                 window.location.href = 'secret12.html';
             } else {
-                // FAIL — show error message
                 errorMsg.style.display = 'block';
 
-                // Shake effect
                 const box = document.querySelector('.login-box');
                 box.style.transition = 'transform 0.08s';
                 box.style.transform = 'translateX(-5px)';
@@ -275,29 +270,25 @@
                 setTimeout(() => { box.style.transform = 'translateX(4px)'; }, 300);
                 setTimeout(() => { box.style.transform = 'translateX(0)'; }, 400);
 
-                // Clear fields
                 usernameInput.value = '';
                 passwordInput.value = '';
 
-                // Refocus
                 setTimeout(() => {
                     usernameInput.focus();
                 }, 500);
 
-                // Temporarily change button style
-                loginBtn.textContent = '⛔ DENIED ⛔';
+                loginBtn.textContent = 'DENIED';
                 loginBtn.style.borderColor = '#ff2244';
                 loginBtn.style.color = '#ff2244';
 
                 setTimeout(() => {
-                    loginBtn.textContent = '⚡ ACCESS ⚡';
+                    loginBtn.textContent = 'ACCESS';
                     loginBtn.style.borderColor = '#00ff41';
                     loginBtn.style.color = '#00ff41';
                 }, 1500);
             }
         });
 
-        // Enter key triggers submit
         usernameInput.addEventListener('keydown', function(e) {
             if (e.key === 'Enter') {
                 form.dispatchEvent(new Event('submit'));
@@ -310,13 +301,11 @@
             }
         });
 
-        // Auto-focus on page load
         window.addEventListener('load', function() {
             usernameInput.focus();
         });
 
-        // Easter egg in console
-        console.log('🔍 HINT: Page 47. "A Borrowed Voice".');
+        console.log('HINT: Page 47. "A Borrowed Voice".');
     </script>
 
 </body>
