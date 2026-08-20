@@ -1,0 +1,192 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>LAB ARCHIVE // SECURITY PROFILE</title>
+    <style>
+        body {
+            background-color: #0a0a0a;
+            color: #00ff41;
+            font-family: 'Courier New', monospace;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            margin: 0;
+            padding: 20px;
+            box-sizing: border-box;
+        }
+
+        .profile-box {
+            border: 2px solid #00ff41;
+            padding: 40px 50px;
+            max-width: 600px;
+            width: 100%;
+            box-shadow: 0 0 30px rgba(0, 255, 65, 0.15);
+            background-color: #0a0a0a;
+        }
+
+        .profile-box h1 {
+            text-align: center;
+            font-size: 18px;
+            font-weight: normal;
+            letter-spacing: 3px;
+            text-transform: uppercase;
+            border-bottom: 1px solid #00ff41;
+            padding-bottom: 12px;
+            margin-top: 0;
+        }
+
+        .field {
+            margin: 12px 0;
+            padding: 10px 12px;
+            border: 1px solid #00aa33;
+            background-color: #050505;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .field .label {
+            font-size: 12px;
+            color: #005522;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+            display: block;
+            margin-bottom: 5px;
+        }
+
+        .field .value {
+            font-size: 18px;
+            color: #00ff41;
+            letter-spacing: 1px;
+        }
+
+        .field .value.empty {
+            color: #003311;
+            font-style: italic;
+        }
+
+        .field .value.redacted {
+            color: #ff2244;
+            opacity: 0.5;
+            letter-spacing: 6px;
+        }
+
+        .status-resigned {
+            color: #ffaa00;
+        }
+
+        .footer-note {
+            text-align: center;
+            font-size: 11px;
+            color: #005522;
+            margin-top: 25px;
+            opacity: 0.4;
+            letter-spacing: 1px;
+            border-top: 1px solid #003311;
+            padding-top: 15px;
+        }
+
+        .cursor-blink {
+            animation: blink 1.2s step-end infinite;
+        }
+
+        @keyframes blink {
+            0%, 100% { opacity: 1; }
+            50% { opacity: 0; }
+        }
+
+        .system-line {
+            text-align: center;
+            font-size: 12px;
+            color: #005522;
+            margin-top: 15px;
+            opacity: 0.5;
+        }
+
+        .ascii-divider {
+            text-align: center;
+            font-size: 10px;
+            color: #003311;
+            opacity: 0.3;
+            margin: 10px 0;
+            letter-spacing: 2px;
+        }
+    </style>
+</head>
+<body>
+    <!-- ЗАЩИТА ОТ ПРЯМОГО ДОСТУПА -->
+    <script>
+        if (!localStorage.getItem('arg_auth')) {
+            window.location.href = 'index.html';
+        }
+        localStorage.removeItem('arg_auth');
+    </script>
+
+    <div class="profile-box">
+
+        <h1>SECURITY PERSONNEL // SYSTEM v.2.1.88</h1>
+
+        <div class="ascii-divider">
+            ═══════════════════════════════════════════
+        </div>
+
+        <div class="field">
+            <span class="label">EMPLOYEE ID</span>
+            <span class="value">AR-569-09</span>
+        </div>
+
+        <div class="field">
+            <span class="label">FULL NAME</span>
+            <span class="value">RABINOVICH, ALEXANDER</span>
+        </div>
+
+        <div class="field">
+            <span class="label">DATE OF BIRTH</span>
+            <span class="value">09.12.1956</span>
+        </div>
+
+        <div class="field">
+            <span class="label">POSITION</span>
+            <span class="value">NIGHT WATCHMAN</span>
+        </div>
+
+        <div class="field">
+            <span class="label">DEPARTMENT</span>
+            <span class="value">LABORATORY SECTOR A12</span>
+        </div>
+
+        <div class="field">
+            <span class="label">EMPLOYMENT STATUS</span>
+            <span class="value status-resigned">RESIGNED // MEDICAL LEAVE</span>
+        </div>
+
+        <div class="field">
+            <span class="label">LAST SHIFT LOG</span>
+            <span class="value empty">Incident Report #404: Severe injury during routine patrol. Details classified.</span>
+        </div>
+
+        <div class="field">
+            <span class="label">INTERNAL NOTES</span>
+            <span class="value" style="font-size: 14px; line-height: 1.4;">
+                Subject of collective complaint (Ref: E. Schmidt).<br>
+                Staff reports: Unintelligible whispering, aggression, missing inventory.<br>
+                Status: Under observation prior to resignation.
+            </span>
+        </div>
+
+        <div class="ascii-divider">
+            ═══════════════════════════════════════════
+        </div>
+
+        <div class="system-line">
+            <span class="cursor-blink">_</span> FILE SEALED. REQUEST FOR DELETION PENDING.
+        </div>
+
+        <div class="footer-note">
+            [ A BORROWED VOICE // ARCHIVE SPIN-OFF ]
+        </div>
+
+    </div>
+
+</body>
+</html>
