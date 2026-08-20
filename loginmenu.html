@@ -1,1 +1,392 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>LAB ARCHIVE // AUTHENTICATION</title>
+    <style>
+        /* === OLD TERMINAL STYLE === */
+        body {
+            background-color: #0a0a0a;
+            color: #00ff41;
+            font-family: 'Courier New', monospace;
+            font-size: 18px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            margin: 0;
+            padding: 20px;
+            box-sizing: border-box;
+        }
 
+        .container {
+            display: flex;
+            gap: 30px;
+            align-items: flex-start;
+            flex-wrap: wrap;
+            justify-content: center;
+        }
+
+        .login-box {
+            border: 2px solid #00ff41;
+            padding: 40px 50px;
+            max-width: 520px;
+            width: 100%;
+            box-shadow: 0 0 30px rgba(0, 255, 65, 0.15);
+            background-color: #0a0a0a;
+        }
+
+        .login-box h1 {
+            text-align: center;
+            font-size: 20px;
+            font-weight: normal;
+            letter-spacing: 3px;
+            text-transform: uppercase;
+            border-bottom: 1px solid #00ff41;
+            padding-bottom: 12px;
+            margin-top: 0;
+        }
+
+        /* === RECENT LOGINS PANEL === */
+        .recent-panel {
+            border: 2px solid #00aa33;
+            padding: 20px 25px;
+            max-width: 240px;
+            width: 100%;
+            background-color: #050505;
+            box-shadow: 0 0 20px rgba(0, 255, 65, 0.05);
+            border-color: #005522;
+        }
+
+        .recent-panel h2 {
+            font-size: 13px;
+            font-weight: normal;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+            color: #005522;
+            border-bottom: 1px solid #003311;
+            padding-bottom: 8px;
+            margin-top: 0;
+            margin-bottom: 12px;
+        }
+
+        .recent-item {
+            font-size: 14px;
+            color: #00aa33;
+            padding: 5px 0;
+            border-bottom: 1px solid #001a0a;
+            display: flex;
+            justify-content: space-between;
+        }
+
+        .recent-item .highlight {
+            color: #00ff41;
+        }
+
+        .recent-item .guest {
+            color: #005522;
+        }
+
+        .recent-item .date {
+            color: #003311;
+            font-size: 12px;
+        }
+
+        .recent-footer {
+            font-size: 10px;
+            color: #002211;
+            margin-top: 12px;
+            text-align: right;
+            letter-spacing: 1px;
+        }
+
+        .divider-line {
+            color: #003311;
+            border: none;
+            border-top: 1px solid #003311;
+            margin: 10px 0;
+        }
+
+        /* === REST OF STYLES === */
+        .input-group {
+            margin: 18px 0;
+        }
+
+        .input-group label {
+            display: block;
+            font-size: 13px;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+            color: #00ff41;
+            margin-bottom: 4px;
+        }
+
+        .input-group label::before {
+            content: "> ";
+        }
+
+        .input-group input {
+            width: 100%;
+            background: none;
+            border: 1px solid #00ff41;
+            color: #00ff41;
+            font-family: 'Courier New', monospace;
+            font-size: 16px;
+            padding: 10px 12px;
+            box-sizing: border-box;
+            outline: none;
+            transition: 0.3s;
+        }
+
+        .input-group input:focus {
+            box-shadow: 0 0 15px rgba(0, 255, 65, 0.3);
+        }
+
+        .login-btn {
+            width: 100%;
+            background: none;
+            border: 1px solid #00ff41;
+            color: #00ff41;
+            font-family: 'Courier New', monospace;
+            font-size: 16px;
+            padding: 12px;
+            letter-spacing: 4px;
+            text-transform: uppercase;
+            cursor: pointer;
+            transition: 0.3s;
+            margin-top: 10px;
+        }
+
+        .login-btn:hover {
+            background-color: #00ff41;
+            color: #0a0a0a;
+            box-shadow: 0 0 30px rgba(0, 255, 65, 0.4);
+        }
+
+        .system-msg {
+            text-align: center;
+            font-size: 13px;
+            color: #00aa33;
+            margin-top: 18px;
+            opacity: 0.7;
+        }
+
+        .cursor-blink {
+            animation: blink 1.2s step-end infinite;
+        }
+
+        @keyframes blink {
+            0%, 100% { opacity: 1; }
+            50% { opacity: 0; }
+        }
+
+        .warning-text {
+            color: #ff2244;
+            font-size: 13px;
+            text-align: center;
+            margin-top: 15px;
+            display: none;
+        }
+
+        .ascii-art {
+            text-align: center;
+            font-size: 10px;
+            line-height: 1.2;
+            color: #00ff41;
+            opacity: 0.5;
+            margin-bottom: 8px;
+            white-space: pre;
+        }
+
+        .hidden-hint {
+            display: none;
+        }
+
+        .footer-note {
+            text-align: center;
+            font-size: 11px;
+            color: #005522;
+            margin-top: 20px;
+            opacity: 0.4;
+            letter-spacing: 1px;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="container">
+
+        <!-- ======================================== -->
+        <!-- MAIN LOGIN BOX                           -->
+        <!-- ======================================== -->
+
+        <div class="login-box">
+
+            <div class="ascii-art">
+    ╔═══════════════════════════════════════╗
+    ║   ██╗  ██╗██╗   ██╗██████╗ ███████╗ ║
+    ║   ██║  ██║██║   ██║██╔══██╗██╔════╝ ║
+    ║   ███████║██║   ██║██████╔╝█████╗   ║
+    ║   ██╔══██║██║   ██║██╔══██╗██╔══╝   ║
+    ║   ██║  ██║╚██████╔╝██████╔╝███████╗ ║
+    ║   ╚═╝  ╚═╝ ╚═════╝ ╚═════╝ ╚══════╝ ║
+    ╚═══════════════════════════════════════╝
+            </div>
+
+            <h1>LAB ARCHIVE // v.2.1.88</h1>
+
+            <div class="system-msg">
+                SYSTEM SECURED. AUTHORIZATION REQUIRED.
+            </div>
+
+            <br>
+
+            <form id="loginForm" onsubmit="return false;">
+
+                <div class="input-group">
+                    <label for="username">USERNAME</label>
+                    <input type="text" id="username" placeholder="ENTER USERNAME..." autofocus>
+                </div>
+
+                <div class="input-group">
+                    <label for="password">PASSWORD</label>
+                    <input type="password" id="password" placeholder="ENTER PASSWORD...">
+                </div>
+
+                <button type="submit" class="login-btn" id="loginBtn">
+                    ACCESS
+                </button>
+
+            </form>
+
+            <div class="warning-text" id="errorMsg">
+                AUTHENTICATION FAILED.
+                INVALID USERNAME OR PASSWORD.
+                ACCESS DENIED.
+            </div>
+
+            <div class="system-msg" style="margin-top: 25px; font-size: 12px; opacity: 0.4;">
+                <span class="cursor-blink">_</span> AWAITING INPUT...
+            </div>
+
+            <div class="footer-note">
+                [ A BORROWED VOICE // ARCHIVE SPIN-OFF ]
+            </div>
+
+            <div class="hidden-hint">
+                <!-- HINT: PAGE 47. "A BORROWED VOICE" -->
+            </div>
+
+        </div>
+
+        <!-- ======================================== -->
+        <!-- RECENT LOGINS PANEL                      -->
+        <!-- ======================================== -->
+
+        <div class="recent-panel">
+            <h2>▸ RECENT LOGINS</h2>
+
+            <div class="recent-item">
+                <span class="highlight">storagen8</span>
+                <span class="date">09.02.1979</span>
+            </div>
+
+            <hr class="divider-line">
+
+            <div class="recent-item" style="font-size: 11px; color: #003311;">
+                <span>LAST ACCESS:</span>
+                <span>09.02.1979</span>
+            </div>
+
+            <div class="recent-footer">
+                [ LOG // SYSTEM v.2.1.88 ]
+            </div>
+        </div>
+
+    </div>
+
+    <!-- ============================================ -->
+    <!-- SCRIPT                                       -->
+    <!-- ============================================ -->
+
+    <script>
+        const form = document.getElementById('loginForm');
+        const usernameInput = document.getElementById('username');
+        const passwordInput = document.getElementById('password');
+        const errorMsg = document.getElementById('errorMsg');
+        const loginBtn = document.getElementById('loginBtn');
+
+        const USERS = {
+            'Kovalchuk': '7341542',
+            'williamblake11': '05241945',
+            'storagen8': '12345678'
+        };
+
+        form.addEventListener('submit', function(event) {
+            event.preventDefault();
+
+            const enteredUsername = usernameInput.value.trim();
+            const enteredPassword = passwordInput.value.trim();
+
+            if (USERS[enteredUsername] && USERS[enteredUsername] === enteredPassword) {
+                // Set authentication flag
+                localStorage.setItem('arg_auth', 'true');
+                
+                if (enteredUsername === 'Kovalchuk') {
+                    window.location.href = 'r5t8n1v6y2.html';
+                } else if (enteredUsername === 'williamblake11') {
+                    window.location.href = 'x7k2m9q4p3.html';
+                } else if (enteredUsername === 'storagen8') {
+                    window.location.href = 'j4h7l3w9k1.html';
+                }
+            } else {
+                errorMsg.style.display = 'block';
+
+                const box = document.querySelector('.login-box');
+                box.style.transition = 'transform 0.08s';
+                box.style.transform = 'translateX(-5px)';
+                setTimeout(() => { box.style.transform = 'translateX(5px)'; }, 100);
+                setTimeout(() => { box.style.transform = 'translateX(-4px)'; }, 200);
+                setTimeout(() => { box.style.transform = 'translateX(4px)'; }, 300);
+                setTimeout(() => { box.style.transform = 'translateX(0)'; }, 400);
+
+                usernameInput.value = '';
+                passwordInput.value = '';
+
+                setTimeout(() => {
+                    usernameInput.focus();
+                }, 500);
+
+                loginBtn.textContent = 'DENIED';
+                loginBtn.style.borderColor = '#ff2244';
+                loginBtn.style.color = '#ff2244';
+
+                setTimeout(() => {
+                    loginBtn.textContent = 'ACCESS';
+                    loginBtn.style.borderColor = '#00ff41';
+                    loginBtn.style.color = '#00ff41';
+                }, 1500);
+            }
+        });
+
+        usernameInput.addEventListener('keydown', function(e) {
+            if (e.key === 'Enter') {
+                form.dispatchEvent(new Event('submit'));
+            }
+        });
+
+        passwordInput.addEventListener('keydown', function(e) {
+            if (e.key === 'Enter') {
+                form.dispatchEvent(new Event('submit'));
+            }
+        });
+
+        window.addEventListener('load', function() {
+            usernameInput.focus();
+        });
+
+        console.log('HINT: Page 47. "A Borrowed Voice"');
+        console.log('Users:', Object.keys(USERS));
+    </script>
+
+</body>
+</html>
