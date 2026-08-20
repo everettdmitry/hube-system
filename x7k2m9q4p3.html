@@ -41,6 +41,8 @@
             padding: 10px 12px;
             border: 1px solid #00aa33;
             background-color: #050505;
+            display: flex; /* Чтобы выровнять лейбл и контент */
+            flex-direction: column;
         }
 
         .field .label {
@@ -49,7 +51,7 @@
             letter-spacing: 2px;
             text-transform: uppercase;
             display: block;
-            margin-bottom: 2px;
+            margin-bottom: 5px;
         }
 
         .field .value {
@@ -67,6 +69,16 @@
             color: #ff2244;
             opacity: 0.5;
             letter-spacing: 6px;
+        }
+
+        /* Стили для аудио-плеера внутри поля */
+        .audio-record {
+            width: 100%;
+            height: 35px;
+            margin-top: 5px;
+            filter: invert(1) hue-rotate(180deg) brightness(0.8); /* Делает плеер зеленым и темным */
+            outline: none;
+            cursor: pointer;
         }
 
         .status-unknown {
@@ -112,7 +124,7 @@
     </style>
 </head>
 <body>
-    <!-- ЗАЩИТА ОТ ПРЯМОГО ДОСТУПА (ТОЛЬКО ЗДЕСЬ!) -->
+    <!-- ЗАЩИТА ОТ ПРЯМОГО ДОСТУПА -->
     <script>
         if (!localStorage.getItem('arg_auth')) {
             window.location.href = 'index.html';
@@ -158,9 +170,13 @@
             <span class="value status-unknown">[ DATA CORRUPTED ]</span>
         </div>
 
+        <!-- ИЗМЕНЕННОЕ ПОЛЕ С АУДИО -->
         <div class="field">
-            <span class="label">LAST RECORD</span>
-            <span class="value empty">_</span>
+            <span class="label">LAST RECORD [AUDIO]</span>
+            <audio controls class="audio-record">
+                <source src="recording.wav" type="audio/wav">
+                Your browser does not support the audio element.
+            </audio>
         </div>
 
         <div class="field">
