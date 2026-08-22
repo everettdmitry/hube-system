@@ -111,6 +111,16 @@
             margin: 10px 0;
             letter-spacing: 2px;
         }
+
+        /* Стиль для аудио-плеера */
+        .audio-record {
+            width: 100%;
+            height: 35px;
+            margin-top: 5px;
+            filter: invert(1) hue-rotate(180deg) brightness(0.8);
+            outline: none;
+            cursor: pointer;
+        }
     </style>
 </head>
 <body>
@@ -160,9 +170,13 @@
             <span class="value status-resigned">RESIGNED // MEDICAL LEAVE</span>
         </div>
 
+        <!-- ПОЛЕ С АУДИО -->
         <div class="field">
-            <span class="label">LAST SHIFT LOG</span>
-            <span class="value empty">Incident Report #404: Severe injury during routine patrol. Details classified.</span>
+            <span class="label">LAST SHIFT LOG [AUDIO]</span>
+            <audio controls class="audio-record">
+                <source src="audio/alexanderrabinovichrecord1.mp3" type="audio/mpeg">
+                Your browser does not support the audio element.
+            </audio>
         </div>
 
         <div class="field">
